@@ -41,7 +41,7 @@ jobs:
           wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
           sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu focal main"
           wget -qO - https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo apt-key add -
-          sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-focal.list https://packages.lunarg.com/vulkan/lunarg-vulkan-focal.list
+          echo "deb https://packages.lunarg.com/vulkan/1.3.283/dists/focal main" | sudo tee /etc/apt/sources.list.d/lunarg-vulkan-focal.list
           sudo apt update
           sudo apt install --no-install-recommends -y ninja-build cmake vulkan-sdk winehq-staging wine-staging wine-staging-dev mingw-w64
           pip install meson
