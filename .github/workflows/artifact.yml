@@ -85,7 +85,7 @@ jobs:
           tar Jcvf "latencyflex-${VERSION}.tar.xz" -C dist latencyflex-${VERSION}
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: github-actions/upload-artifact@v3
         continue-on-error: true
         with:
           name: latencyflex-${{steps.git-vars.outputs.artifact-metadata}}
