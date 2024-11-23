@@ -47,6 +47,21 @@ jobs:
           pip install meson
 
       - run: |
+          # Set up Vulkan SDK environment variables
+          export VULKAN_SDK=/usr
+          export VK_ICD_FILENAMES=$VULKAN_SDK/etc/vulkan/icd.d
+          export VK_LAYER_PATH=$VULKAN_SDK/etc/vulkan/explicit_layer.d
+          echo "VULKAN_SDK=$VULKAN_SDK" >> $GITHUB_ENV
+          echo "VK_ICD_FILENAMES=$VK_ICD_FILENAMES" >> $GITHUB_ENV
+          echo "VK_LAYER_PATH=$VK_LAYER_PATH" >> $GITHUB_ENV
+
+          # Check if Vulkan headers are installed
+          if [ ! -f "/usr/include/vulkan/generated/vk_layer_dispatch_table.h" ]; then
+            echo "Missing vk_layer_dispatch_table.h!"
+            exit 1
+          fi
+
+      - run: |
           VERSION=$(git describe --always --tags)
           OUTDIR="${PWD}/dist/latencyflex-${VERSION}"
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
